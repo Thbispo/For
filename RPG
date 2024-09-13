@@ -1,0 +1,167 @@
+function portaMisteriosa() {
+  alert("Você entrou em uma sala.");
+
+  alert(
+    "Você encontrou um báu misterioso com a madeira velha. Ao abrir, você se depara com duas Katanas com uma pegada diferenciada, uma armadura prateada brilhante igual aos olhos dela."
+  );
+
+  let escolhaItem = prompt(
+    "Qual o primeiro item que você gostaria de escolher? \n1- Katanas afiadas iguais às de Zoro. \n2- Armadura de prata fortemente blindada. \n3- Cogumelo mágico. \nQual irá escolher?"
+  );
+
+  while (escolhaItem < 1 || escolhaItem > 3) {
+    escolhaItem = prompt(
+      "Escolha um item válido: \n1- Katanas afiadas iguais às de Zoro. \n2- Armadura de prata fortemente blindada. \n3- Cogumelo mágico. \nQual irá escolher?"
+    );
+  }
+
+  alert(
+    "Após escolher o item, o báu não se abrirá mais e acabará sumindo. Você não conseguirá pegar nenhum dos itens que sobraram."
+  );
+
+  return escolhaItem;
+}
+
+function corredor() {
+  alert("Você está indo pelo corredor.");
+
+  alert(
+    "Enquanto anda pelo corredor escuro, você ouve muitos barulhos e vê um monstro anormal. O que você vai fazer?"
+  );
+
+  let escolhaperso = prompt(
+    "Escolha uma ação: \n1- Duelar contra o Kamikaze. \n2- Voltar para o início e entrar na sala."
+  );
+
+  while (escolhaperso < 1 || escolhaperso > 2) {
+    escolhaperso = prompt(
+      "Escolha uma ação válida: \n1- Duelar contra o Kamikaze. \n2- Voltar para o início e entrar na sala."
+    );
+  }
+
+  return escolhaperso;
+}
+
+function batalhaKamikaze(nome, attack, defesa, vida) {
+  const atkKamikaze = 15;
+  const defKamikaze = 10;
+  let vidaKamikaze = 20;
+
+  let danoJogador = attack - defKamikaze;
+  if (danoJogador > 0) {
+    vidaKamikaze -= danoJogador;
+    alert(nome + " deu " + danoJogador + " de dano no Kamikaze.");
+  } else {
+    alert(nome + ", não conseguiu dar dano no Kamikaze.");
+  }
+
+  let danoKamikaze = atkKamikaze - defesa;
+  if (danoKamikaze > 0) {
+    vida -= danoKamikaze;
+    alert("Kamikaze deu " + danoKamikaze + " de dano no " + nome);
+  } else {
+    alert("Kamikaze não conseguiu acertar o ataque no " + nome);
+  }
+
+  return vida;
+}
+
+function salailuminada() {
+  alert("Você entrou em uma sala iluminada.");
+
+  alert(
+    "Nessa sala, há três baús brilhantes. Você pode escolher apenas um, e cada um deles oferece uma opção: sair com vida da caverna, lutar novamente com o Kamikaze ou enfrentar um monstro mais poderoso."
+  );
+
+  let escolhaBau = prompt(
+    "Qual baú você irá escolher? \n1- Sair com vida da caverna. \n2- Duelar novamente com o Kamikaze. \n3- Recomeçar o jogo do zero."
+  );
+
+  while (escolhaBau < 1 || escolhaBau > 3) {
+    escolhaBau = prompt(
+      "Escolha um baú válido: \n1- Sair com vida da caverna. \n2- Duelar novamente com o Kamikaze. \n3- Recomeçar o jogo do zero."
+    );
+  }
+
+  alert(
+    "Após escolher o baú, ele não se abrirá novamente e desaparecerá. Você não conseguirá mais abrir esse baú."
+  );
+
+  return escolhaBau;
+}
+
+let nome = "";
+let attack = 15;
+let defesa = 15;
+let vida = 30;
+
+alert(
+  "Você caiu em um grande buraco e, ao se levantar, encontrou duas opções: à sua esquerda, uma grande porta de madeira velha; à direita, um longo corredor escuro. Qual caminho você escolhe?"
+);
+
+nome = prompt("Olá, grande aventureiro! Qual é o seu nome?");
+
+alert(nome + ", seja bem-vindo à caverna do Dragão...");
+
+let escolha = prompt(
+  "Qual caminho você decide seguir? \n1- Seguir à esquerda (porta misteriosa). \n2- Seguir à direita (corredor escuro)."
+);
+
+if (escolha == "1") {
+  let item = portaMisteriosa();
+
+  if (item == "1") {
+    attack += 5;
+    alert(
+      "Ao usar a Katana, você se sente como Zoro, invulnerável e insaciável."
+    );
+  } else if (item == "2") {
+    defesa += 10;
+    alert("Ao colocar a armadura, você se sentirá intocável.");
+  } else if (item == "3") {
+    vida += 30;
+    alert("Ao comer o cogumelo mágico, você se sente maior.");
+  } else {
+    alert("Você pode voltar para o corredor agora.");
+  }
+
+  alert(
+    "Você sente sua força aumentando: \n\nattack: " +
+      attack +
+      "\ndefesa: " +
+      defesa +
+      "\nvida: " +
+      vida
+  );
+} else if (escolha == "2") {
+  let perso = corredor();
+
+  if (perso == "1") {
+    alert("Você começa uma batalha contra o Kamikaze.");
+    vida = batalhaKamikaze(nome, attack, defesa, vida);
+  } else if (perso == "2") {
+    alert(
+      "Você entra na sala e encontra um báu misterioso e brilhante. Agora você pode lutar contra o tenebroso Kamikaze."
+    );
+    vida = batalhaKamikaze(nome, attack, defesa, vida);
+  }
+}
+
+function jogo() {
+  if (vida > 0) {
+    let escolhaFinal = salailuminada();
+    if (escolhaFinal == "1") {
+      alert("Você decidiu sair com vida da caverna. Parabéns!");
+    } else if (escolhaFinal == "2") {
+      alert("Você decidiu duelar novamente com o Kamikaze.");
+      vida = batalhaKamikaze(nome, attack, defesa, vida);
+    } else if (escolhaFinal == "3") {
+      alert("Você decidiu recomeçar o jogo do zero.");
+      // Lógica para recomeçar o jogo pode ser implementada aqui
+    }
+  } else {
+    alert("Você foi derrotado e não pode continuar.");
+  }
+}
+
+jogo();
